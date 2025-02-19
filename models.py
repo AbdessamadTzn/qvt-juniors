@@ -6,7 +6,7 @@ class Manager(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)  # Store hashed passwords here
+    password = db.Column(db.String(128), nullable=False)  # Store hashed passwords
     # One manager can have many employees
     employees = db.relationship('Employee', backref='manager', lazy=True)
 
@@ -32,7 +32,13 @@ class Report(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     employee_id = db.Column(db.Integer, db.ForeignKey('employees.id'), nullable=False)
     report_date = db.Column(db.Date, default=datetime.utcnow, nullable=False)
-    satisfaction = db.Column(db.Integer, nullable=False)  # Expected to be a score from 1-10
+    # New metrics for the QVT questionnaire:
+    satisfaction = db.Column(db.Integer, nullable=False)
+    pressure = db.Column(db.Integer, nullable=False)
+    anxiety = db.Column(db.Integer, nullable=False)
+    relation = db.Column(db.Integer, nullable=False)
+    negotiation = db.Column(db.Integer, nullable=False)
+    task_satisfaction = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text, nullable=True)
 
     def __repr__(self):
