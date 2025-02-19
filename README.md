@@ -1,1 +1,1 @@
-# qvt-alternants
+# qvt-juniors
