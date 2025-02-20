@@ -1,19 +1,38 @@
 {% extends 'base.html' %} {% block title %}Welcome to QVT Portal{% endblock %}
 {% block content %}
-<div class="container mt-4 text-center">
-  <h1>Welcome to the QVT Portal</h1>
-  <p>Please choose your portal:</p>
-  <div class="d-flex justify-content-center">
-    <a
-      href="{{ url_for('authEmployee.employee_home') }}"
-      class="btn btn-primary m-2"
-      >Employee Portal</a
-    >
-    <a
-      href="{{ url_for('authManager.manager_home') }}"
-      class="btn btn-secondary m-2"
-      >Manager Portal</a
-    >
+<div
+  class="d-flex align-items-center justify-content-center"
+  style="
+    min-height: 90vh;
+    background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+  "
+>
+  <div
+    class="text-center p-5"
+    style="
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 15px;
+      max-width: 600px;
+    "
+  >
+    <h1 class="mb-4">Welcome to the QVT Portal</h1>
+    <p class="lead mb-4">
+      Choose your portal to begin your journey. Whether you're an employee
+      sharing daily insights or a manager overseeing team well-being, we've got
+      you covered.
+    </p>
+    <div class="d-flex justify-content-center">
+      <a
+        href="{{ url_for('authEmployee.employee_home') }}"
+        class="btn btn-primary btn-lg m-2"
+        >Employee Portal</a
+      >
+      <a
+        href="{{ url_for('authManager.manager_home') }}"
+        class="btn btn-secondary btn-lg m-2"
+        >Manager Portal</a
+      >
+    </div>
   </div>
 </div>
 {% endblock %}

@@ -1,0 +1,61 @@
+/* custom.css */
+
+/* Basic styling for forms, containers, etc. */
+body {
+  background: #fefefe;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Card styling */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings and text alignment */
+h1,
+h2,
+h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Emoji rating styling */
+.emoji-rating {
+  font-size: 2rem;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  transition: transform 0.2s ease-in-out;
+}
+.emoji-rating:hover {
+  transform: scale(1.2);
+}
+
+/* Star rating styling */
+.star-rating .fa-star {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ccc;
+  margin: 0 0.25rem;
+  transition: color 0.2s ease-in-out;
+}
+.star-rating .fa-star:hover,
+.star-rating .fa-star:hover ~ .fa-star {
+  color: #ffc107;
+}
+
+/* Numeric scale buttons */
+.numeric-scale .btn-scale {
+  margin: 0 0.25rem;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  line-height: 2rem;
+  text-align: center;
+  transition: background 0.2s ease-in-out;
+}
+.numeric-scale .btn-scale:hover {
+  background: #007bff;
+  color: #fff;
+}
