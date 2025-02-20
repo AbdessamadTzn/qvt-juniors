@@ -1,0 +1,184 @@
+{% extends 'base.html' %} {% block title %}Dashboard{% endblock %} {% block
+content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Hello, {{ employee.name }}!</h1>
+
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  <div class="alert alert-success" role="alert">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+  {% endif %} {% endwith %}
+
+  <div class="row">
+    <!-- Daily Questionnaire Form -->
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header">Daily Questionnaire</div>
+        <div class="card-body">
+          <form
+            method="POST"
+            action="{{ url_for('authEmployee.submit_report') }}"
+          >
+            <div class="form-group">
+              <label for="satisfaction">Satisfaction (1-10):</label>
+              <input
+                type="number"
+                class="form-control"
+                id="satisfaction"
+                name="satisfaction"
+                min="1"
+                max="10"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="pressure">Pressure (1-10):</label>
+              <input
+                type="number"
+                class="form-control"
+                id="pressure"
+                name="pressure"
+                min="1"
+                max="10"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="anxiety">Anxiety (1-10):</label>
+              <input
+                type="number"
+                class="form-control"
+                id="anxiety"
+                name="anxiety"
+                min="1"
+                max="10"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="relation">Relation with Others (1-10):</label>
+              <input
+                type="number"
+                class="form-control"
+                id="relation"
+                name="relation"
+                min="1"
+                max="10"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="negotiation"
+                >Negotiation with Superiors (1-10):</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="negotiation"
+                name="negotiation"
+                min="1"
+                max="10"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="task_satisfaction">Task Satisfaction (1-10):</label>
+              <input
+                type="number"
+                class="form-control"
+                id="task_satisfaction"
+                name="task_satisfaction"
+                min="1"
+                max="10"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="comment">Comments:</label>
+              <textarea
+                class="form-control"
+                id="comment"
+                name="comment"
+                rows="3"
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Report</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie Chart for QVT Breakdown -->
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header">Your QVT Breakdown</div>
+        <div class="card-body text-center">
+          {% if chart_image %}
+          <img
+            src="data:image/png;base64,{{ chart_image }}"
+            alt="QVT Pie Chart"
+            class="img-fluid"
+          />
+          {% else %}
+          <p>No chart available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Past Reports Table with PDF Generation Button -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Your Past Reports
+          <a
+            href="{{ url_for('authEmployee.download_report') }}"
+            class="btn btn-secondary btn-sm float-right"
+          >
+            Generate PDF Report
+          </a>
+        </div>
+        <div class="card-body">
+          {% if reports %}
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Satisfaction</th>
+                <th>Pressure</th>
+                <th>Anxiety</th>
+                <th>Relation</th>
+                <th>Negotiation</th>
+                <th>Task Satisfaction</th>
+                <th>Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for report in reports %}
+              <tr>
+                <td>{{ report.report_date.strftime("%Y-%m-%d") }}</td>
+                <td>{{ report.satisfaction }}</td>
+                <td>{{ report.pressure }}</td>
+                <td>{{ report.anxiety }}</td>
+                <td>{{ report.relation }}</td>
+                <td>{{ report.negotiation }}</td>
+                <td>{{ report.task_satisfaction }}</td>
+                <td>{{ report.comment }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p>No reports submitted yet.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

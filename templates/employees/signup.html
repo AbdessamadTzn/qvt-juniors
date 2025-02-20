@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block title %}Employee Sign Up{% endblock %} {%
+block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h2 class="mb-4">Sign Up</h2>
+    <form method="POST">
+      <div class="form-group">
+        <label for="employee_signup_name">Name</label>
+        <input
+          type="text"
+          name="employee_signup_name"
+          class="form-control"
+          id="employee_signup_name"
+          placeholder="Your name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="employee_signup_email">Email address</label>
+        <input
+          type="email"
+          name="employee_signup_email"
+          class="form-control"
+          id="employee_signup_email"
+          placeholder="Enter email"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="employee_signup_password">Password</label>
+        <input
+          type="password"
+          name="employee_signup_password"
+          class="form-control"
+          id="employee_signup_password"
+          placeholder="Password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
