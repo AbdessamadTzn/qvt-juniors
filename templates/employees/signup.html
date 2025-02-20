@@ -2,43 +2,52 @@
 block content %}
 <div class="row justify-content-center">
   <div class="col-md-6">
-    <h2 class="mb-4">Sign Up</h2>
-    <form method="POST">
-      <div class="form-group">
-        <label for="employee_signup_name">Name</label>
-        <input
-          type="text"
-          name="employee_signup_name"
-          class="form-control"
-          id="employee_signup_name"
-          placeholder="Your name"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="employee_signup_email">Email address</label>
-        <input
-          type="email"
-          name="employee_signup_email"
-          class="form-control"
-          id="employee_signup_email"
-          placeholder="Enter email"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="employee_signup_password">Password</label>
-        <input
-          type="password"
-          name="employee_signup_password"
-          class="form-control"
-          id="employee_signup_password"
-          placeholder="Password"
-          required
-        />
-      </div>
-      <button type="submit" class="btn btn-primary">Sign Up</button>
-    </form>
+    <div class="card p-4">
+      <h2>Create Your Account</h2>
+      <p class="text-center">Join us and start sharing your feedback</p>
+      <form method="POST">
+        <div class="form-group">
+          <label for="employee_signup_name">Name</label>
+          <input
+            type="text"
+            name="employee_signup_name"
+            class="form-control"
+            id="employee_signup_name"
+            placeholder="Your name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="employee_signup_email">Email address</label>
+          <input
+            type="email"
+            name="employee_signup_email"
+            class="form-control"
+            id="employee_signup_email"
+            placeholder="Enter email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="employee_signup_password">Password</label>
+          <input
+            type="password"
+            name="employee_signup_password"
+            class="form-control"
+            id="employee_signup_password"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-3">
+          Sign Up
+        </button>
+      </form>
+      <p class="mt-3 text-center">
+        Already have an account?
+        <a href="{{ url_for('authEmployee.employee_login') }}">Sign In</a>
+      </p>
+    </div>
   </div>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
-{% extends 'base.html' %} {% block title %}Dashboard{% endblock %} {% block
-content %}
+{% extends 'base.html' %} {% block title %}Employee Dashboard{% endblock %} {%
+block content %}
 <div class="container mt-4">
   <h1 class="mb-4">Hello, {{ employee.name }}!</h1>
 
@@ -13,172 +13,309 @@ content %}
   {% endif %} {% endwith %}
 
   <div class="row">
-    <!-- Daily Questionnaire Form -->
-    <div class="col-md-6">
-      <div class="card mb-4">
-        <div class="card-header">Daily Questionnaire</div>
-        <div class="card-body">
-          <form
-            method="POST"
-            action="{{ url_for('authEmployee.submit_report') }}"
-          >
-            <div class="form-group">
-              <label for="satisfaction">Satisfaction (1-10):</label>
-              <input
-                type="number"
-                class="form-control"
-                id="satisfaction"
-                name="satisfaction"
-                min="1"
-                max="10"
-                required
-              />
+    <!-- Feedback Form -->
+    <div class="col-md-6 mb-4">
+      <div class="card p-4">
+        <h3 class="mb-3">Daily Feedback</h3>
+
+        <form
+          method="POST"
+          action="{{ url_for('authEmployee.submit_report') }}"
+        >
+          <!-- 1. How would you rate your mood today? (Emoji Rating) -->
+          <div class="form-group text-center mb-4">
+            <label class="d-block font-weight-bold" for="mood_rating"
+              >How would you rate your mood today?</label
+            >
+            <small class="text-muted d-block mb-2"
+              >Your input is valuable to help us understand</small
+            >
+
+            <!-- Hidden input to store the emoji rating (1-5) -->
+            <input
+              type="hidden"
+              name="mood_rating"
+              id="mood_rating"
+              value="3"
+            />
+
+            <!-- Emoji icons for rating -->
+            <span class="emoji-rating" data-value="1">&#128544;</span>
+            <span class="emoji-rating" data-value="2">&#128530;</span>
+            <span class="emoji-rating" data-value="3">&#128528;</span>
+            <span class="emoji-rating" data-value="4">&#128522;</span>
+            <span class="emoji-rating" data-value="5">&#128513;</span>
+          </div>
+
+          <!-- 2. How was work today? (Star Rating) -->
+          <div class="form-group text-center star-rating mb-4">
+            <label class="d-block font-weight-bold" for="satisfaction"
+              >How was work today?</label
+            >
+            <small class="text-muted d-block mb-2"
+              >Share your feedback to help us understand</small
+            >
+
+            <!-- Hidden input to store the star rating -->
+            <input
+              type="hidden"
+              name="satisfaction"
+              id="satisfaction"
+              value="3"
+            />
+
+            <!-- 5 star icons (Font Awesome) -->
+            <i class="fa fa-star" data-value="1"></i>
+            <i class="fa fa-star" data-value="2"></i>
+            <i class="fa fa-star" data-value="3"></i>
+            <i class="fa fa-star" data-value="4"></i>
+            <i class="fa fa-star" data-value="5"></i>
+          </div>
+
+          <!-- 3. Why did you feel so? (Checkboxes) -->
+          <div class="form-group text-center mb-4">
+            <label class="d-block font-weight-bold">Why did you feel so?</label>
+            <small class="text-muted d-block mb-2">Select all that apply</small>
+
+            <div class="btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-secondary m-1">
+                <input
+                  type="checkbox"
+                  name="feedback_reasons"
+                  value="Easy to follow"
+                  autocomplete="off"
+                />
+                Easy to follow
+              </label>
+              <label class="btn btn-outline-secondary m-1">
+                <input
+                  type="checkbox"
+                  name="feedback_reasons"
+                  value="Relevant"
+                  autocomplete="off"
+                />
+                Relevant
+              </label>
+              <label class="btn btn-outline-secondary m-1">
+                <input
+                  type="checkbox"
+                  name="feedback_reasons"
+                  value="Practical"
+                  autocomplete="off"
+                />
+                Practical
+              </label>
+              <label class="btn btn-outline-secondary m-1">
+                <input
+                  type="checkbox"
+                  name="feedback_reasons"
+                  value="Inspiring & Motivating"
+                  autocomplete="off"
+                />
+                Inspiring &amp; Motivating
+              </label>
             </div>
-            <div class="form-group">
-              <label for="pressure">Pressure (1-10):</label>
-              <input
-                type="number"
-                class="form-control"
-                id="pressure"
-                name="pressure"
-                min="1"
-                max="10"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="anxiety">Anxiety (1-10):</label>
-              <input
-                type="number"
-                class="form-control"
-                id="anxiety"
-                name="anxiety"
-                min="1"
-                max="10"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="relation">Relation with Others (1-10):</label>
-              <input
-                type="number"
-                class="form-control"
-                id="relation"
-                name="relation"
-                min="1"
-                max="10"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="negotiation"
-                >Negotiation with Superiors (1-10):</label
+          </div>
+
+          <!-- 4. How was this session? (Numeric Scale 1-5) -->
+          <div class="form-group text-center numeric-scale mb-4">
+            <label class="d-block font-weight-bold" for="session_rating"
+              >How was this session?</label
+            >
+            <small class="text-muted d-block mb-2"
+              >1 = Not satisfied, 5 = Very satisfied</small
+            >
+
+            <div class="mt-2">
+              {% for num in range(1,6) %}
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-scale m-1"
+                data-value="{{ num }}"
               >
+                {{ num }}
+              </button>
+              {% endfor %}
               <input
-                type="number"
-                class="form-control"
-                id="negotiation"
-                name="negotiation"
-                min="1"
-                max="10"
-                required
+                type="hidden"
+                name="session_rating"
+                id="session_rating"
+                value="3"
               />
             </div>
-            <div class="form-group">
-              <label for="task_satisfaction">Task Satisfaction (1-10):</label>
-              <input
-                type="number"
-                class="form-control"
-                id="task_satisfaction"
-                name="task_satisfaction"
-                min="1"
-                max="10"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="comment">Comments:</label>
-              <textarea
-                class="form-control"
-                id="comment"
-                name="comment"
-                rows="3"
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Report</button>
-          </form>
-        </div>
+          </div>
+
+          <!-- 5. Additional Comments -->
+          <div class="form-group">
+            <label for="comment" class="font-weight-bold"
+              >Additional Comments</label
+            >
+            <textarea
+              class="form-control"
+              id="comment"
+              name="comment"
+              rows="3"
+              placeholder="Tell us more about your day..."
+            ></textarea>
+          </div>
+
+          <!-- Hidden fields for other metrics if needed -->
+          <input type="hidden" name="pressure" value="3" />
+          <input type="hidden" name="anxiety" value="3" />
+          <input type="hidden" name="relation" value="3" />
+          <input type="hidden" name="negotiation" value="3" />
+          <input type="hidden" name="task_satisfaction" value="3" />
+
+          <button type="submit" class="btn btn-primary btn-block mt-3">
+            Continue
+          </button>
+        </form>
       </div>
     </div>
 
-    <!-- Pie Chart for QVT Breakdown -->
-    <div class="col-md-6">
-      <div class="card mb-4">
-        <div class="card-header">Your QVT Breakdown</div>
-        <div class="card-body text-center">
-          {% if chart_image %}
-          <img
-            src="data:image/png;base64,{{ chart_image }}"
-            alt="QVT Pie Chart"
-            class="img-fluid"
-          />
-          {% else %}
-          <p>No chart available.</p>
-          {% endif %}
-        </div>
+    <!-- QVT Pie Chart or Another Visualization -->
+    <div class="col-md-6 mb-4">
+      <div class="card p-4 text-center">
+        <h3>Your QVT Breakdown</h3>
+        {% if chart_image %}
+        <img
+          src="data:image/png;base64,{{ chart_image }}"
+          alt="QVT Pie Chart"
+          class="img-fluid mt-3"
+        />
+        {% else %}
+        <p class="mt-3">No chart available.</p>
+        {% endif %}
       </div>
     </div>
   </div>
 
-  <!-- Past Reports Table with PDF Generation Button -->
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          Your Past Reports
-          <a
-            href="{{ url_for('authEmployee.download_report') }}"
-            class="btn btn-secondary btn-sm float-right"
-          >
-            Generate PDF Report
-          </a>
-        </div>
-        <div class="card-body">
-          {% if reports %}
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Satisfaction</th>
-                <th>Pressure</th>
-                <th>Anxiety</th>
-                <th>Relation</th>
-                <th>Negotiation</th>
-                <th>Task Satisfaction</th>
-                <th>Comments</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for report in reports %}
-              <tr>
-                <td>{{ report.report_date.strftime("%Y-%m-%d") }}</td>
-                <td>{{ report.satisfaction }}</td>
-                <td>{{ report.pressure }}</td>
-                <td>{{ report.anxiety }}</td>
-                <td>{{ report.relation }}</td>
-                <td>{{ report.negotiation }}</td>
-                <td>{{ report.task_satisfaction }}</td>
-                <td>{{ report.comment }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          {% else %}
-          <p>No reports submitted yet.</p>
-          {% endif %}
-        </div>
-      </div>
+  <!-- Past Reports Table -->
+  <div class="card p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">Your Past Reports</h4>
+      <a
+        href="{{ url_for('authEmployee.download_report') }}"
+        class="btn btn-secondary btn-sm"
+      >
+        Generate PDF Report
+      </a>
     </div>
+    {% if reports %}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Mood Rating</th>
+          <th>Work Rating</th>
+          <th>Session Rating</th>
+          <th>Comments</th>
+          <!-- If you want to display other metrics, add columns here -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for report in reports %}
+        <tr>
+          <td>{{ report.report_date.strftime("%Y-%m-%d") }}</td>
+          <td><!-- Display mood rating from DB if stored --></td>
+          <td>{{ report.satisfaction }}</td>
+          <td><!-- session_rating if stored in DB --></td>
+          <td>{{ report.comment }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No reports submitted yet.</p>
+    {% endif %}
   </div>
 </div>
+{% endblock %} {% block scripts %}
+<!-- Font Awesome (for star icons) -->
+<script
+  src="https://kit.fontawesome.com/your_fontawesome_kit.js"
+  crossorigin="anonymous"
+></script>
+
+<script>
+  /********************************
+   * 1. Emoji Mood Rating
+   ********************************/
+  const emojiElements = document.querySelectorAll('.emoji-rating');
+  const moodRatingInput = document.getElementById('mood_rating');
+  emojiElements.forEach((emoji) => {
+    emoji.addEventListener('click', () => {
+      const val = parseInt(emoji.getAttribute('data-value'));
+      moodRatingInput.value = val;
+      // Simple highlight effect
+      emojiElements.forEach((e) => (e.style.opacity = '0.4'));
+      emoji.style.opacity = '1';
+    });
+  });
+  // Initialize default emoji rating display
+  function initEmojis() {
+    const defaultVal = parseInt(moodRatingInput.value);
+    emojiElements.forEach((e) => {
+      if (parseInt(e.getAttribute('data-value')) === defaultVal) {
+        e.style.opacity = '1';
+      } else {
+        e.style.opacity = '0.4';
+      }
+    });
+  }
+  initEmojis();
+
+  /********************************
+   * 2. Star Rating (How was work?)
+   ********************************/
+  const starElements = document.querySelectorAll('.star-rating .fa-star');
+  const satisfactionInput = document.getElementById('satisfaction');
+  starElements.forEach((star) => {
+    star.addEventListener('click', () => {
+      const rating = parseInt(star.getAttribute('data-value'));
+      satisfactionInput.value = rating;
+      // highlight stars
+      starElements.forEach((s) => {
+        const sVal = parseInt(s.getAttribute('data-value'));
+        s.style.color = sVal <= rating ? '#ffc107' : '#ccc';
+      });
+    });
+  });
+  // Initialize star rating (default = 3)
+  function initStars() {
+    const defaultRating = parseInt(satisfactionInput.value);
+    starElements.forEach((star) => {
+      const sVal = parseInt(star.getAttribute('data-value'));
+      star.style.color = sVal <= defaultRating ? '#ffc107' : '#ccc';
+    });
+  }
+  initStars();
+
+  /********************************
+   * 4. Numeric Scale (How was this session?)
+   ********************************/
+  const scaleButtons = document.querySelectorAll('.btn-scale');
+  const sessionRatingInput = document.getElementById('session_rating');
+  scaleButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const val = parseInt(btn.getAttribute('data-value'));
+      sessionRatingInput.value = val;
+      scaleButtons.forEach((b) =>
+        b.classList.remove('btn-primary', 'text-white')
+      );
+      btn.classList.add('btn-primary', 'text-white');
+    });
+  });
+  // Initialize numeric scale display (default = 3)
+  function initScale() {
+    const defaultVal = parseInt(sessionRatingInput.value);
+    scaleButtons.forEach((btn) => {
+      const bVal = parseInt(btn.getAttribute('data-value'));
+      if (bVal === defaultVal) {
+        btn.classList.add('btn-primary', 'text-white');
+      }
+    });
+  }
+  initScale();
+</script>
 {% endblock %}

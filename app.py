@@ -15,7 +15,13 @@ load_dotenv()
 app = Flask(__name__)
 
 # Use environment variables or fallback defaults
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", 'sqlite:///app.db')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", 'sqlite:///app.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///default.db'  # optional default
+app.config['SQLALCHEMY_BINDS'] = {
+    'employees': 'sqlite:///employees.db',
+    'managers': 'sqlite:///managers.db'
+}
+
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", 'DJODNCWOICNWOIEACJOIEWJ')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -30,7 +36,7 @@ app.register_blueprint(authEmployees, url_prefix='/')
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('index.html')
 
 # Example route to list employees (for testing purposes)
 @app.route('/employees')

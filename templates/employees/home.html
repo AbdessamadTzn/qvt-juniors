@@ -1,17 +1,25 @@
 {% extends 'base.html' %} {% block title %}Employee Home{% endblock %} {% block
 content %}
-<div class="text-center">
-  <h1>Welcome to the Employee Portal</h1>
-  <p>Please choose an option:</p>
-  <a
-    href="{{ url_for('authEmployee.employee_login') }}"
-    class="btn btn-primary m-2"
-    >Sign In</a
-  >
-  <a
-    href="{{ url_for('authEmployee.employee_signup') }}"
-    class="btn btn-secondary m-2"
-    >Sign Up</a
-  >
+<div
+  class="d-flex justify-content-center align-items-center"
+  style="min-height: 80vh"
+>
+  <div class="text-center" style="max-width: 500px">
+    <h1 class="mb-4">Hi there! We're QVT Junior</h1>
+    <p class="lead">
+      QVT Junior lets you easily voice your thoughts about your work
+      environment. Monitor your daily mood and keep a close eye on your Quality
+      of Work Life. Get instant, personalized support whenever you need it with
+      our AI Chatbot.
+    </p>
+    <a
+      href="{{ url_for('authEmployee.employee_login') }}"
+      class="btn btn-primary btn-lg mt-3 px-5"
+      style="border-radius: 50px"
+    >
+      Start Now!
+    </a>
+    <p class="mt-4 text-muted">What are you waiting for?</p>
+  </div>
 </div>
 {% endblock %}
