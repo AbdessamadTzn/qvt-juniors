@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block title %}Manager Dashboard{% endblock %} {%
+block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Welcome, {{ manager.name }}!</h1>
+
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  <div class="alert alert-info" role="alert">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+  {% endif %} {% endwith %}
+
+  <h3>Your Employees</h3>
+  {% if employees %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Employee Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for emp in employees %}
+      <tr>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.email }}</td>
+        <td>
+          <a
+            href="{{ url_for('authManager.manager_download_report', employee_id=emp.id) }}"
+            class="btn btn-secondary btn-sm"
+          >
+            Generate PDF Report
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>You have no employees assigned yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

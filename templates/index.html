@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block title %}Welcome to QVT Portal{% endblock %}
+{% block content %}
+<div class="container mt-4 text-center">
+  <h1>Welcome to the QVT Portal</h1>
+  <p>Please choose your portal:</p>
+  <div class="d-flex justify-content-center">
+    <a
+      href="{{ url_for('authEmployee.employee_home') }}"
+      class="btn btn-primary m-2"
+      >Employee Portal</a
+    >
+    <a
+      href="{{ url_for('authManager.manager_home') }}"
+      class="btn btn-secondary m-2"
+      >Manager Portal</a
+    >
+  </div>
+</div>
+{% endblock %}
