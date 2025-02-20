@@ -1,10 +1,30 @@
 {% extends 'base.html' %} {% block title %}Manager Home{% endblock %} {% block
 content %}
-<div class="container mt-4">
-  <h1>Manager Portal</h1>
-  <p>
-    <a href="{{ url_for('authManager.manager_signup') }}">Sign Up</a> or
-    <a href="{{ url_for('authManager.manager_signin') }}">Sign In</a>
-  </p>
+<div
+  class="d-flex justify-content-center align-items-center"
+  style="min-height: 80vh"
+>
+  <div class="text-center" style="max-width: 500px">
+    <h1 class="mb-4">Welcome to the Manager Portal</h1>
+    <p class="lead">
+      Here, you can oversee your team's daily feedback, keep track of their
+      Quality of Work Life, and provide them with the support they need. Gain
+      insights into their performance and satisfaction to foster a positive,
+      productive work environment.
+    </p>
+    <a
+      href="{{ url_for('authManager.manager_signin') }}"
+      class="btn btn-primary btn-lg mt-3 px-5"
+      style="border-radius: 50px"
+    >
+      Get Started
+    </a>
+    <p class="mt-4 text-muted">
+      or
+      <a href="{{ url_for('authManager.manager_signup') }}">
+        create a new manager account
+      </a>
+    </p>
+  </div>
 </div>
 {% endblock %}
